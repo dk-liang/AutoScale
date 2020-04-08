@@ -1,6 +1,7 @@
 # AutoScale_localization
 * An officical implementation of AutoScale localization-based method, you can find regression-based method from here. 
-* AutoScale proposed 
+* AutoScale proposed <br />
+
 #Structure
 ```
 AutoScale_localization
