@@ -26,7 +26,7 @@ AutoScale_localization
 
 # Visualizations
 ## Some localization-based results.
-![avatar](image/result1.png)
+![avatar](images/result1.png)
 
 ## Result of detected person locations
 Red points and green circles are the ground-truth and predicted locations, respectively.
