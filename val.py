@@ -1,26 +1,24 @@
 from __future__ import division
-import warnings
 
-from fpn import AutoScale
-from utils import save_checkpoint
-from rate_model import RATEnet
+import math
+import pickle
+import warnings
+from functools import partial
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision import transforms
 
-from torchvision import datasets, transforms
 import dataset
-import math
-from image import *
-import scipy
-from scipy.ndimage.filters import gaussian_filter
 from find_contours import findmaxcontours
-import pickle
-from functools import partial
+from fpn import AutoScale
+from image import *
+from rate_model import RATEnet
+
 warnings.filterwarnings('ignore')
 from config import args
 import  os
-import scipy.misc
 import imageio
 
 torch.cuda.manual_seed(args.seed)
@@ -52,11 +50,17 @@ def main():
     if args.pre:
         if os.path.isfile(args.pre):
             print("=> loading checkpoint '{}'".format(args.pre))
-            checkpoint = torch.load(args.pre, map_location=lambda storage, loc: storage, pickle_module=pickle)
+            # checkpoint = torch.load(args.pre, map_location=lambda storage, loc: storage, pickle_module=pickle)
+            checkpoint = torch.load(args.pre)
             model.load_state_dict(checkpoint['state_dict'],strict=False)
-            #rate_model.load_state_dict(checkpoint['rate_state_dict'])
+            rate_model.load_state_dict(checkpoint['rate_state_dict'])
         else:
             print("=> no checkpoint found at '{}'".format(args.pre))
+
+    # torch.save({
+    #         'state_dict': model.state_dict(),
+    #         'rate_state_dict': rate_model.state_dict()
+    #     }, "./model/ShanghaiA/model_best.pth")
 
     validate(val_list, model, rate_model, args)
 
@@ -172,7 +176,6 @@ def validate(Pre_data, model, rate_model, args):
 
     mae = 0.0
     mse = 0.0
-    game = 0.0
     original_mae = 0.0
     visi = []
 
@@ -183,47 +186,47 @@ def validate(Pre_data, model, rate_model, args):
         count_other = 0
         img = img.cuda()
         target = target.type(torch.LongTensor)
-        print(img.shape)
+
         d0, d1, d2, d3, d4, d5, scales_feature = model(img, target,refine_flag=True)
         original_distance_map = torch.max(F.softmax(d5), 1, keepdim=True)[1]
         crop_size, crop_size_second, crop_size_third,contours = findmaxcontours(original_distance_map.data.cpu().numpy(),
                                                                        find_max=True, fname=fname)
         original_count = count_distance(original_distance_map)
-        #
-        # scale_crop = scales_feature[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
-        #              crop_size[0]:(crop_size[0] + crop_size[2])]
-        #
-        # scale_crop = F.adaptive_avg_pool2d(scale_crop, (14, 14))
-        #
-        # rate_feature = scale_crop
-        # rate_list = rate_model(rate_feature)
-        # rate_list.clamp_(0.5, 5)
-        #
-        # rate = torch.sqrt(rate_list)
-        #
-        # distance_map_gt_crop = distance_generate(img_size, kpoint, rate.item(), crop_size)[1]
-        # distance_map_gt_crop = torch.from_numpy(distance_map_gt_crop).unsqueeze(0).type(torch.LongTensor)
-        #
-        # if (float(crop_size[2] * crop_size[3]) / (img_size[2] * img_size[3])) > args.area_threshold :
-        #
-        #     img_crop = img[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
-        #                crop_size[0]:(crop_size[0] + crop_size[2])]
-        #     img_crop = F.upsample_bilinear(img_crop,
-        #                                    (int(img_crop.size()[2] * rate),
-        #                                     int(img_crop.size()[3] * rate)))
-        #
-        #     dd0, dd1, dd2, dd3, dd4, dd5 = model(img_crop,  distance_map_gt_crop, refine_flag=False)
-        #
-        #     dd5 = torch.max(F.softmax(dd5), 1, keepdim=True)[1]
-        #     count_crop = count_distance(dd5)
-        #
-        #     original_distance_map[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
-        #     crop_size[0]:(crop_size[0] + crop_size[2])] = 10
-        #     count_other = count_distance(original_distance_map)
-        #
-        # else:
-        #     count_crop = original_count
-        #     count_other = 0
+
+        scale_crop = scales_feature[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
+                     crop_size[0]:(crop_size[0] + crop_size[2])]
+
+        scale_crop = F.adaptive_avg_pool2d(scale_crop, (14, 14))
+
+        rate_feature = scale_crop
+        rate_list = rate_model(rate_feature)
+        rate_list.clamp_(0.5, 5)
+
+        rate = torch.sqrt(rate_list)
+
+        distance_map_gt_crop = distance_generate(img_size, kpoint, rate.item(), crop_size)[1]
+        distance_map_gt_crop = torch.from_numpy(distance_map_gt_crop).unsqueeze(0).type(torch.LongTensor)
+
+        if (float(crop_size[2] * crop_size[3]) / (img_size[2] * img_size[3])) > args.area_threshold :
+
+            img_crop = img[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
+                       crop_size[0]:(crop_size[0] + crop_size[2])]
+            img_crop = F.upsample_bilinear(img_crop,
+                                           (int(img_crop.size()[2] * rate),
+                                            int(img_crop.size()[3] * rate)))
+
+            dd0, dd1, dd2, dd3, dd4, dd5 = model(img_crop,  distance_map_gt_crop, refine_flag=False)
+
+            dd5 = torch.max(F.softmax(dd5), 1, keepdim=True)[1]
+            count_crop = count_distance(dd5)
+
+            original_distance_map[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
+            crop_size[0]:(crop_size[0] + crop_size[2])] = 10
+            count_other = count_distance(original_distance_map)
+
+        else:
+            count_crop = original_count
+            count_other = 0
 
         count = count_crop + count_other
         Gt_count = torch.sum(kpoint).item()

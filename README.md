@@ -1,6 +1,6 @@
 # AutoScale_localization
-* An officical implementation of AutoScale localization-based method, you can find regression-based method from here. 
-* [AutoScale](https://arxiv.org/abs/1912.09632) proposes a simple yet effective Learning to Scale (L2S) module to cope with signiﬁcant scale variations in both regression and localization<br />
+* An officical implementation of AutoScale localization-based method, you can find regression-based method from [here](https://github.com/dkliang-hust/AutoScale_regression). 
+* [AutoScale](https://arxiv.org/abs/1912.09632) proposes a simple yet effective Learning to Scale (L2S) module to cope with signiﬁcant scale variations in both regression and localization.<br />
 
 # Structure
 ```
@@ -23,22 +23,73 @@ AutoScale_localization
 |-- rate_model.py
 |-- val.py        
 ```
+
+# Visualizations
+##Some localization-based results.
+![avatar](./images/result1.png)
+
+##Result of detected person locations
+Red points and green circles are the ground-truth and predicted locations, respectively.
+![avatar](./images/result2.png)
+
 # Environment
-Python >=3.6
-
-Pytorch >=0.4
-
-Opencv-python >=4.0
-
+python >=3.6 <br />
+pytorch >=1.0 <br />
+opencv-python >=4.0 <br />
+scipy >=1.4.0 <br />
+h5py >=2.10 <br />
+pillow >=7.0.0
 
 # Datasets
-1. Download ShanghaiTech Dataset from [Baidu-Disk](https://pan.baidu.com/s/1nuAYslz) 
-  Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
-<br />
-2. Create data directory, ```mkdir ./data/ ```<br />
-3. Move ShanghaiTech and UCF-QNRF to ./data
-4. Generate target, ```cd ./data/ShanghaiTech/``` run ```python distance_generate.py```; ```cd ./data/UCF-QNRF/``` run ```python distance_generate.py```<br />
+For ShanghaiTech
+* Download ShanghaiTech Dataset from [Baidu-Disk](https://pan.baidu.com/s/1nuAYslz) <br />
+* Move ShanghaiTech to ./data
+* Create Directories, final data path structure looks like this:<br />
+```
+|-- data
+|   |-- ShanghaiTech
+|   |   |-- part_A_final
+|   |   |   |-- train_data
+|   |   |   |   |-- images
+|   |   |   |   |-- ground_truth
+|   |   |   |   |-- gt_distance_map
+|   |   |   |-- test_data
+|   |   |   |   |-- images
+|   |   |   |   |-- ground_truth
+|   |   |   |   |-- gt_distance_map
+|   |   |-- part_B_final  
+|   |   |   |-- train_data
+|   |   |   |   |-- images
+|   |   |   |   |-- ground_truth
+|   |   |   |   |-- gt_distance_map
+|   |   |   |-- test_data   
+|   |   |   |   |-- images
+|   |   |   |   |-- ground_truth
+|   |   |   |   |-- gt_distance_map           
+|   |-- UCF_QNRF 
+```
+* Generate target <br />
+ ```cd ./data/``` run ```python Distance_generate_Sh.py```<br />
 
+For UCF-QNRF
+* Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
+* Move UCF-QNRF to ./data
+* Create Directories, final data path structure looks like this:<br />
+```
+|-- data          
+|   |-- UCF_QNRF
+|   |   |-- train_data_1920
+|   |   |   |-- images
+|   |   |   |-- gt_distance_map
+|   |   |-- test_data_1920
+|   |   |   |-- images
+|   |   |   |-- gt_distance_map
+|   |   |-- Train
+|   |   |-- Test
+|   |-- SHanghaitech
+```
+* Generate target <br />
+ ```cd ./data/``` run ```python Distance_generate_QNRF.py```<br />
 
 
 # Model
@@ -51,10 +102,12 @@ Opencv-python >=4.0
 * Download Dataset and Model
 * Generate images list, run ```python make_npydata.py  ```
 * Test <br />
-```python val.py  -- test_dataset UCF  --pre ./model/UCF-QNRF/model_best.pth.tar```<br />
+```python val.py  -- test_dataset UCF-QNRF  --pre ./model/UCF-QNRF/model_best.pth.tar```<br />
 ```python val.py  -- test_dataset ShanghaiA  --pre ./model/ShanghaiA/model_best.pth.tar```<br />
 ```python val.py  -- test_dataset ShanghaiB  --pre ./model/ShanghaiA/model_best.pth.tar```<br />
-More config information you can see ```config.py  ```
+More config information are  provided in ```config.py  ```
+
+
 
 # References
 If you are interested in AutoScale, please cite our work:

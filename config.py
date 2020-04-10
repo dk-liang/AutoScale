@@ -19,9 +19,9 @@ parser.add_argument('--start_epoch', type=int, default=0,
                     help='start epoch for training')
 
 # Model specifications
-parser.add_argument('--test_dataset', type=str, default='UCF_QNRF',
+parser.add_argument('--test_dataset', type=str, default='ShanghaiA',
                     help='choice train dataset')
-parser.add_argument('--pre', type=str, default='./model/UCF_QNRF/checkpoint_137_5.pth.tar',
+parser.add_argument('--pre', type=str, default='./model/ShanghaiA/model_best.pth',
                     help='pre-trained model directory')
 
 
@@ -42,7 +42,7 @@ parser.add_argument('--epochs', type=int, default=2000,
                     help='number of epochs to train')
 parser.add_argument('--seed', type=int, default=1,
                     help='random seed')
-parser.add_argument('--gpu_id', type=str, default='2',
+parser.add_argument('--gpu_id', type=str, default='1',
                     help='gpu id')
 
 
