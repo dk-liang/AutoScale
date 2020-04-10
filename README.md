@@ -25,12 +25,12 @@ AutoScale_localization
 ```
 
 # Visualizations
-##Some localization-based results.
-![avatar](./images/result1.png)
+## Some localization-based results.
+![avatar](images/result1.png)
 
-##Result of detected person locations
+## Result of detected person locations
 Red points and green circles are the ground-truth and predicted locations, respectively.
-![avatar](./images/result2.png)
+![avatar](images/result2.png)
 
 # Environment
 python >=3.6 <br />
