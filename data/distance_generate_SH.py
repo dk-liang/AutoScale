@@ -8,7 +8,7 @@ import numpy as np
 import scipy.io as io
 import scipy.spatial
 
-root = '/data/weixu/ShanghaiTech_Crowd_Counting_Dataset_baseline/'
+root = './ShanghaiTech/'
 
 part_A_train = os.path.join(root,'part_A_final/train_data','images')
 part_A_test = os.path.join(root,'part_A_final/test_data','images')
