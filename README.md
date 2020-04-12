@@ -8,6 +8,8 @@ AutoScale_localization
 |-- data
 |   |-- ShanghaiTech                         
 |   |-- UCF_QNRF   
+|   |-- distance_generate_SH.py
+|   |-- distance_generate_QNRF.py
 |-- model             # model path
 |   |-- ShanghaiA          
 |   |-- ShanghaiB               
@@ -69,7 +71,7 @@ For ShanghaiTech
 |   |-- UCF_QNRF 
 ```
 * Generate target <br />
- ```cd ./data/``` run ```python Distance_generate_SH.py```<br />
+ ```cd ./data/```, run ```python Distance_generate_SH.py```<br />
 
 For UCF-QNRF
 * Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
@@ -89,13 +91,12 @@ For UCF-QNRF
 |   |-- SHanghaitech
 ```
 * Generate target <br />
- ```cd ./data/``` run ```python Distance_generate_QNRF.py```<br />
+ ```cd ./data/```, run ```python Distance_generate_QNRF.py```<br />
 
 
 # Model
 * ShanghaiA [link](https://pan.baidu.com/s/13dWGc8-0T_MTkyDD14U2nQ), passward : ban1
 * ShanghaiB [link](https://pan.baidu.com/s/1cs4Txb6BoobMTB7VKsjfmQ), passward : a3g2
-* UCF-QNRF  [link](https://pan.baidu.com/s/1atLZmCQmdxv-DFnltCSLtA), passward : v8zk
 
 
 # Quickly test
