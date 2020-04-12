@@ -1,6 +1,6 @@
 # AutoScale_localization
 * An officical implementation of AutoScale localization-based method, you can find regression-based method from [here](https://github.com/dkliang-hust/AutoScale_regression). 
-* [AutoScale](https://arxiv.org/abs/1912.09632) proposes a simple yet effective Learning to Scale (L2S) module to cope with signiﬁcant scale variations in both regression and localization.<br />
+* [AutoScale](https://arxiv.org/abs/1912.09632) leverages a simple yet effective Learning to Scale (L2S) module to cope with signiﬁcant scale variations in both regression and localization.<br />
 
 # Structure
 ```
@@ -42,7 +42,7 @@ pillow >=7.0.0
 
 # Datasets
 For ShanghaiTech
-* Download ShanghaiTech Dataset from [Baidu-Disk](https://pan.baidu.com/s/1nuAYslz) <br />
+* Download ShanghaiTech Dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
 * Move ShanghaiTech to ./data
 * Create Directories, final data path structure looks like this:<br />
 ```
@@ -69,7 +69,7 @@ For ShanghaiTech
 |   |-- UCF_QNRF 
 ```
 * Generate target <br />
- ```cd ./data/``` run ```python Distance_generate_Sh.py```<br />
+ ```cd ./data/``` run ```python Distance_generate_SH.py```<br />
 
 For UCF-QNRF
 * Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
@@ -102,10 +102,9 @@ For UCF-QNRF
 * Download Dataset and Model
 * Generate images list, run ```python make_npydata.py  ```
 * Test <br />
-```python val.py  -- test_dataset UCF-QNRF  --pre ./model/UCF-QNRF/model_best.pth.tar```<br />
-```python val.py  -- test_dataset ShanghaiA  --pre ./model/ShanghaiA/model_best.pth.tar```<br />
-```python val.py  -- test_dataset ShanghaiB  --pre ./model/ShanghaiA/model_best.pth.tar```<br />
-More config information are  provided in ```config.py  ```
+```python val.py  --test_dataset ShanghaiA  --pre ./model/ShanghaiA/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset ShanghaiB  --pre ./model/ShanghaiB/model_best.pth --gpu_id 0```<br />
+More config information is  provided in ```config.py  ```
 
 
 

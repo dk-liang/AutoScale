@@ -8,20 +8,16 @@ import scipy.io
 import scipy.misc
 from scipy.ndimage.filters import gaussian_filter
 
-# img_train_path = './part_A_final/train_data/images_synthetic/'
-# gt_train_path = './part_A_final/train_data/ground_truth/'
-# img_test_path = './part_A_final/test_data/images_synthetic/'
-# gt_test_path = './part_A_final/test_data/ground_truth/'
+root = './UCF-QNRF'
+img_train_path = root + '/Train/'
+gt_train_path = root + '/Train/'
+img_test_path = root + '/Test/'
+gt_test_path = root + '/Test/'
 
-# img_train_path = './resize_data_patch/train/'
-# gt_train_path = './resize_data_patch/train/'
-img_train_path = './Train/'
-gt_train_path = './Train/'
-img_test_path = './Test/'
-gt_test_path = './Test/'
-
-save_train_path = './resize_data_patch_1920/train/'
-save_test_path =  './resize_data_patch_1920/test/'
+save_train_img_path = root + '/train_data_1920/images/'
+save_train_gt_path = root + '/train_data_1920/gt_distance_map/'
+save_test_img_path = root + '/test_data_1920/images/'
+save_test_gt_path = root + '/test_data_1920/gt_distance_map/'
 
 distance = 1
 
@@ -114,7 +110,7 @@ for k in range(len(img_train)):
     density_map = gaussian_filter(density_map, 15)
 
     #print(density_map.shape, Img_data.shape, img_train[k])
-    new_img_path = (save_train_path + img_train[k])
+    new_img_path = (save_train_img_path + img_train[k])
 
     mat_path = new_img_path.split('.jpg')[0]
     gt_show_path = new_img_path.split('.jpg')[0] + 'gt.jpg'
