@@ -1,9 +1,5 @@
 # coding=utf-8
 import torch.nn as nn
-import torch
-from torchvision import models
-from utils import save_net, load_net
-import torch.nn.functional as F
 
 
 class RATEnet(nn.Module):

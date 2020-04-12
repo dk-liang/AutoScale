@@ -40,7 +40,8 @@ pytorch >=1.0 <br />
 opencv-python >=4.0 <br />
 scipy >=1.4.0 <br />
 h5py >=2.10 <br />
-pillow >=7.0.0
+pillow >=7.0.0<br />
+imageio >=1.18
 
 # Datasets
 For ShanghaiTech
