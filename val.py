@@ -32,8 +32,13 @@ def main():
         test_file = './ShanghaiB_test.npy'
     elif args.test_dataset =='UCF_QNRF':
         test_file = './Qnrf_test.npy'
+    elif args.test_dataset == 'JHU':
+        test_file = './Jhu_val.npy'
+    elif args.test_dataset =='NWPU':
+        test_file = './Nwpu_val.npy'
 
-    with open(test_file, 'rb') as outfile:
+
+with open(test_file, 'rb') as outfile:
         val_list = np.load(outfile).tolist()
 
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
@@ -57,10 +62,6 @@ def main():
         else:
             print("=> no checkpoint found at '{}'".format(args.pre))
 
-    # torch.save({
-    #         'state_dict': model.state_dict(),
-    #         'rate_state_dict': rate_model.state_dict()
-    #     }, "./model/ShanghaiA/model_best.pth")
 
     validate(val_list, model, rate_model, args)
 

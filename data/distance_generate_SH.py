@@ -8,15 +8,41 @@ import numpy as np
 import scipy.io as io
 import scipy.spatial
 
-root = './ShanghaiTech/'
+root = '/home/dkliang/projects/synchronous/ShanghaiTech/'
 
 part_A_train = os.path.join(root,'part_A_final/train_data','images')
 part_A_test = os.path.join(root,'part_A_final/test_data','images')
 part_B_train = os.path.join(root,'part_B_final/train_data','images')
 part_B_test = os.path.join(root,'part_B_final/test_data','images')
 
-
 path_sets = [part_A_train,part_A_test,part_B_train,part_B_test]
+
+if not os.path.exists(part_A_train.replace('images','gt_distance_map') ):
+	os.makedirs(part_A_train.replace('images','gt_distance_map'))
+
+if not os.path.exists(part_A_test.replace('images','gt_distance_map')):
+	os.makedirs(part_A_test.replace('images','gt_distance_map'))
+
+if not os.path.exists(part_A_train.replace('images','gt_show_distance')):
+	os.makedirs(part_A_train.replace('images','gt_show_distance'))
+
+if not os.path.exists(part_A_test.replace('images','gt_show_distance')):
+	os.makedirs(part_A_test.replace('images','gt_show_distance'))
+
+if not os.path.exists(part_B_train.replace('images','gt_distance_map')):
+	os.makedirs(part_B_train.replace('images','gt_distance_map'))
+
+if not os.path.exists(part_B_test.replace('images','gt_distance_map')):
+	os.makedirs(part_B_test.replace('images','gt_distance_map'))
+
+if not os.path.exists(part_B_train.replace('images','gt_show_distance')):
+	os.makedirs(part_B_train.replace('images','gt_show_distance'))
+
+if not os.path.exists(part_B_test.replace('images','gt_show_distance')):
+	os.makedirs(part_B_test.replace('images','gt_show_distance'))
+
+
+
 
 img_paths = []
 for path in path_sets:
@@ -57,7 +83,7 @@ def Distance_generate(im_data, gt_data, lamda):
 
 
 for img_path in img_paths:
-	print(img_path)
+
 	Img_data = cv2.imread(img_path)
 
 	mat = io.loadmat(img_path.replace('.jpg', '.mat').replace('images', 'ground_truth').replace('IMG_', 'GT_IMG_'))
@@ -88,6 +114,9 @@ for img_path in img_paths:
 		hf['distance_map'] = Distance_map
 		hf['kpoint'] = kpoint
 		hf['sigma_map'] = sigma_map
-	# Distance_map = Distance_map/np.max(Distance_map)*255
-	# cv2.imwrite(save_path+img_train[k], Distance_map)
 
+
+	Distance_map = Distance_map/np.max(Distance_map)*255
+	cv2.imwrite(img_path.replace('images','gt_show_distance').replace('.jpg','.bmp'), Distance_map)
+
+	print(img_path)

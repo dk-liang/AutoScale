@@ -227,7 +227,7 @@ def findmaxcontours(distance_map, find_max, fname):
     ret, binary = cv2.threshold(gray, Thresh, 255, cv2.THRESH_BINARY_INV)
     #cv2.imwrite("./middle_process/binary_only_roi.jpg", binary)
     #cv2.imshow("binary", binary)
-    binary, contours, hierarchy= cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy= cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     #print(len(contours))
     list_index = []
     for i in range(len(contours)):

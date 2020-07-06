@@ -1,5 +1,4 @@
 import os
-
 import numpy as np
 
 shanghaiAtrain_path='./data/ShanghaiTech/part_A_final/train_data/images/'
@@ -59,4 +58,33 @@ for filename in os.listdir(Qnrf_test_path):
         test_list.append(Qnrf_test_path+filename)
 test_list.sort()
 np.save('./Qnrf_test.npy', test_list)
+print(len(test_list))
+
+
+Jhu_train_path='/home/dkl/projects/synchronous/jhu_crowd_v2.0/train/images/'
+Jhu_val_path='/home/dkl/projects/synchronous/jhu_crowd_v2.0/val/images/'
+jhu_test_path='/home/dkl/projects/synchronous/jhu_crowd_v2.0/test/images/'
+
+train_list = []
+for filename in os.listdir(Jhu_train_path):
+    if filename.split('.')[1] == 'jpg':
+        train_list.append(Jhu_train_path+filename)
+train_list.sort()
+np.save('./jhu_train.npy', train_list)
+print(len(train_list))
+
+val_list = []
+for filename in os.listdir(Jhu_val_path):
+    if filename.split('.')[1] == 'jpg':
+        val_list.append(Jhu_val_path+filename)
+val_list.sort()
+np.save('./jhu_val.npy', val_list)
+print(len(val_list))
+
+test_list = []
+for filename in os.listdir(jhu_test_path):
+    if filename.split('.')[1] == 'jpg':
+        test_list.append(jhu_test_path+filename)
+test_list.sort()
+np.save('./jhu_test.npy', test_list)
 print(len(test_list))

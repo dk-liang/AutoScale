@@ -6,14 +6,7 @@
 ```
 AutoScale_localization
 |-- data
-|   |-- ShanghaiTech                         
-|   |-- UCF_QNRF   
-|   |-- distance_generate_SH.py
-|   |-- distance_generate_QNRF.py
-|-- model             # model path
-|   |-- ShanghaiA          
-|   |-- ShanghaiB               
-|   |-- UCF_QNRF   
+|-- model             # model path 
 |-- README.md       # README
 |-- centerloss.py           
 |-- config.py          
@@ -30,9 +23,13 @@ AutoScale_localization
 ## Some localization-based results.
 ![avatar](images/result1.png)
 
+Qualitative visualization of distance label maps given by the proposed AutoScale.
+
 ## Result of detected person locations
-Red points and green circles are the ground-truth and predicted locations, respectively.
-![avatar](images/result2.png)
+.
+![avatar](images/localization.png)
+
+Red points are the ground-truth. To more clearly present our localization results, we generate bounding boxes (green boxes) according to the KNN distance of each point, which follows and compares with LSC-CNN.
 
 # Environment
 python >=3.6 <br />
@@ -44,71 +41,39 @@ pillow >=7.0.0<br />
 imageio >=1.18
 
 # Datasets
-For ShanghaiTech
-* Download ShanghaiTech Dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
-* Move ShanghaiTech to ./data
-* Create Directories, final data path structure looks like this:<br />
-```
-|-- data
-|   |-- ShanghaiTech
-|   |   |-- part_A_final
-|   |   |   |-- train_data
-|   |   |   |   |-- images
-|   |   |   |   |-- ground_truth
-|   |   |   |   |-- gt_distance_map
-|   |   |   |-- test_data
-|   |   |   |   |-- images
-|   |   |   |   |-- ground_truth
-|   |   |   |   |-- gt_distance_map
-|   |   |-- part_B_final  
-|   |   |   |-- train_data
-|   |   |   |   |-- images
-|   |   |   |   |-- ground_truth
-|   |   |   |   |-- gt_distance_map
-|   |   |   |-- test_data   
-|   |   |   |   |-- images
-|   |   |   |   |-- ground_truth
-|   |   |   |   |-- gt_distance_map           
-|   |-- UCF_QNRF 
-```
-* Generate target <br />
- ```cd ./data/```, run ```python Distance_generate_SH.py```<br />
-
-For UCF-QNRF
+* Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
 * Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
-* Move UCF-QNRF to ./data
-* Create Directories, final data path structure looks like this:<br />
-```
-|-- data          
-|   |-- UCF_QNRF
-|   |   |-- train_data_1920
-|   |   |   |-- images
-|   |   |   |-- gt_distance_map
-|   |   |-- test_data_1920
-|   |   |   |-- images
-|   |   |   |-- gt_distance_map
-|   |   |-- Train
-|   |   |-- Test
-|   |-- SHanghaitech
-```
-* Generate target <br />
- ```cd ./data/```, run ```python Distance_generate_QNRF.py```<br />
+* Download JHU-CROWD ++  dataset from [here](http://www.crowd-counting.com/)
+* Download NWPU-CROWD dataset from [here](http://www.crowdbenchmark.com/)
 
+# Generate target
+```cd data```
+```python distance_generate_xx.py```
+
+“xx” means the dataset name, including sh, jhu, qnrf, and  nwpu.
 
 # Model
+* QNRF [link](https://pan.baidu.com/s/134U6Q0cugUf8xOLSAq3IGw),passward:eh5g
+* NWPU [link](https://pan.baidu.com/s/1eCRi51uUCduIxet_fIEjcg),passward:gupa
+* JHU [link](https://pan.baidu.com/s/1z4S9kt9YxLq7ML-TcPV1hw),passward:0cw9
 * ShanghaiA [link](https://pan.baidu.com/s/13dWGc8-0T_MTkyDD14U2nQ), passward : ban1
 * ShanghaiB [link](https://pan.baidu.com/s/1cs4Txb6BoobMTB7VKsjfmQ), passward : a3g2
 
 
 # Quickly test
 * Download Dataset and Model
+* Generate target
 * Generate images list, run ```python make_npydata.py  ```
 * Test <br />
+```python val.py  --test_dataset qnrf  --pre ./model/Qnrf/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset jhu  --pre ./model/Jhu/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset nwpu  --pre ./model/Nwpu/model_best.pth --gpu_id 0```<br />
 ```python val.py  --test_dataset ShanghaiA  --pre ./model/ShanghaiA/model_best.pth --gpu_id 0```<br />
 ```python val.py  --test_dataset ShanghaiB  --pre ./model/ShanghaiB/model_best.pth --gpu_id 0```<br />
 More config information is  provided in ```config.py  ```
 
-
+# Training
+coming soon.
 
 # References
 If you are interested in AutoScale, please cite our work:
