@@ -5,8 +5,8 @@
 # Structure
 ```
 AutoScale_localization
-|-- data
-|-- model             # model path 
+|-- data            # generate target
+|-- model           # model path 
 |-- README.md       # README
 |-- centerloss.py           
 |-- config.py          
@@ -42,15 +42,16 @@ imageio >=1.18
 
 # Datasets
 * Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
-* Download UCF-QNRF Dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
+* Download UCF-QNRF dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
 * Download JHU-CROWD ++  dataset from [here](http://www.crowd-counting.com/)
-* Download NWPU-CROWD dataset from [here](http://www.crowdbenchmark.com/)
+* Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1hzGULEkg2FyW8oHSGmxgiA), passward:jm2v
 
 # Generate target
-```cd data```
+```cd data```<br />
+Edit "distance_generate_xx.py" to change the path to your original dataset folder.
 ```python distance_generate_xx.py```
-
 “xx” means the dataset name, including sh, jhu, qnrf, and  nwpu.
+
 
 # Model
 * QNRF [link](https://pan.baidu.com/s/134U6Q0cugUf8xOLSAq3IGw),passward:eh5g
@@ -61,13 +62,18 @@ imageio >=1.18
 
 
 # Quickly test
+* ```git clone https://github.com/dkliang-hust/AutoScale.git```<br />
+```cd AutoScale```<br />
+```chmod -R 777 ./count_localminma```<br />
 * Download Dataset and Model
 * Generate target
-* Generate images list, run ```python make_npydata.py  ```
+* Generate images list
+Edit "make_npydata.py" to change the path to your original dataset folder.
+Run ```python make_npydata.py  ```
 * Test <br />
-```python val.py  --test_dataset qnrf  --pre ./model/Qnrf/model_best.pth --gpu_id 0```<br />
-```python val.py  --test_dataset jhu  --pre ./model/Jhu/model_best.pth --gpu_id 0```<br />
-```python val.py  --test_dataset nwpu  --pre ./model/Nwpu/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset qnrf  --pre ./model/QNRF/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset jhu  --pre ./model/JHU/model_best.pth --gpu_id 0```<br />
+```python val.py  --test_dataset nwpu  --pre ./model/NWPU/model_best.pth --gpu_id 0```<br />
 ```python val.py  --test_dataset ShanghaiA  --pre ./model/ShanghaiA/model_best.pth --gpu_id 0```<br />
 ```python val.py  --test_dataset ShanghaiB  --pre ./model/ShanghaiB/model_best.pth --gpu_id 0```<br />
 More config information is  provided in ```config.py  ```

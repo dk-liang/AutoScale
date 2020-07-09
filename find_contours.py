@@ -289,7 +289,7 @@ def findmaxcontours(distance_map, find_max, fname):
     # if bboverlap(coordinate_first, coordinate_second)==True:
     #target = cv2.applyColorMap(target, cv2.COLORMAP_JET)
     #Img = np.hstack((Img,target))
-    save_path = "./middle_process/contours_result_8/"+fname[0]
+    save_path = "./save_file/contours_result/"+fname[0]
     # # #print(save_path)
    # if len(rate) !=0:
     #    for i in range(2):
@@ -299,7 +299,7 @@ def findmaxcontours(distance_map, find_max, fname):
     #
     # # cv2.imshow('show', Img)
     # # cv2.imshow("img", img)
-    return coordinate_first, coordinate_second, coordinate_third, contours
+    return coordinate_first
 
 # def main():
 #     img = cv2.imread("./input_img.jpg")

@@ -42,7 +42,7 @@ parser.add_argument('--epochs', type=int, default=2000,
                     help='number of epochs to train')
 parser.add_argument('--seed', type=int, default=1,
                     help='random seed')
-parser.add_argument('--gpu_id', type=str, default='1',
+parser.add_argument('--gpu_id', type=str, default='0',
                     help='gpu id')
 
 

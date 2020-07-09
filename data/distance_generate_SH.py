@@ -8,6 +8,7 @@ import numpy as np
 import scipy.io as io
 import scipy.spatial
 
+'''please set your dataset path'''
 root = '/home/dkliang/projects/synchronous/ShanghaiTech/'
 
 part_A_train = os.path.join(root,'part_A_final/train_data','images')

@@ -18,27 +18,25 @@ from rate_model import RATEnet
 
 warnings.filterwarnings('ignore')
 from config import args
-import  os
+import os
 import imageio
 
 torch.cuda.manual_seed(args.seed)
 
 
 def main():
-
     if args.test_dataset == 'ShanghaiA':
-        test_file = './ShanghaiA_test.npy'
+        test_file = './npydata/ShanghaiA_test.npy'
     elif args.test_dataset == 'ShanghaiB':
-        test_file = './ShanghaiB_test.npy'
-    elif args.test_dataset =='UCF_QNRF':
-        test_file = './Qnrf_test.npy'
+        test_file = './npydata/ShanghaiB_test.npy'
+    elif args.test_dataset == 'UCF_QNRF':
+        test_file = './npydata/qnrf_test.npy'
     elif args.test_dataset == 'JHU':
-        test_file = './Jhu_val.npy'
-    elif args.test_dataset =='NWPU':
-        test_file = './Nwpu_val.npy'
+        test_file = './npydata/jhu_val.npy'
+    elif args.test_dataset == 'NWPU':
+        test_file = './npydata/nwpu_val.npy'
 
-
-with open(test_file, 'rb') as outfile:
+    with open(test_file, 'rb') as outfile:
         val_list = np.load(outfile).tolist()
 
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_id
@@ -57,11 +55,10 @@ with open(test_file, 'rb') as outfile:
             print("=> loading checkpoint '{}'".format(args.pre))
             # checkpoint = torch.load(args.pre, map_location=lambda storage, loc: storage, pickle_module=pickle)
             checkpoint = torch.load(args.pre)
-            model.load_state_dict(checkpoint['state_dict'],strict=False)
+            model.load_state_dict(checkpoint['state_dict'], strict=False)
             rate_model.load_state_dict(checkpoint['rate_state_dict'])
         else:
             print("=> no checkpoint found at '{}'".format(args.pre))
-
 
     validate(val_list, model, rate_model, args)
 
@@ -122,7 +119,7 @@ def distance_generate(img_size, k, lamda, crop_size):
         d_map[x][y] = d_map[x][y] - 255
 
     distance_map = cv2.distanceTransform(d_map, cv2.DIST_L2, 5)
-    #distance_mask = distance_map.copy()
+    # distance_mask = distance_map.copy()
 
     distance_map[(distance_map >= 0) & (distance_map < 1)] = 0
     distance_map[(distance_map >= 1) & (distance_map < 2)] = 1
@@ -136,12 +133,12 @@ def distance_generate(img_size, k, lamda, crop_size):
     distance_map[(distance_map >= 18 * distance) & (distance_map < 28 * distance)] = 9
     distance_map[(distance_map >= 28 * distance)] = 10
 
-    #print('time cost', time_end - time_start, 's')
-    #mask, distance_map = mask_generate(distance_map,distance_mask)
-    x = int(crop_size[0]*lamda)
-    y = int(crop_size[1]*lamda)
-    w = int(crop_size[2]*lamda)
-    h = int(crop_size[3]*lamda)
+    # print('time cost', time_end - time_start, 's')
+    # mask, distance_map = mask_generate(distance_map,distance_mask)
+    x = int(crop_size[0] * lamda)
+    y = int(crop_size[1] * lamda)
+    w = int(crop_size[2] * lamda)
+    h = int(crop_size[3] * lamda)
 
     distance_map = distance_map[y:(y + h), x:(x + w)]
 
@@ -154,7 +151,8 @@ def distance_generate(img_size, k, lamda, crop_size):
 def count_distance(input_img):
     input_img = input_img.squeeze(0).squeeze(0).detach().cpu().numpy().astype(np.uint8)
     imageio.imsave('./distance_map.pgm', input_img)
-    f = os.popen('./count_localminma/extract_local_minimum_return_xy ./distance_map.pgm 256 ./distance_map.pgm distance_map.pp')
+    f = os.popen(
+        './count_localminma/extract_local_minimum_return_xy ./distance_map.pgm 256 ./distance_map.pgm distance_map.pp')
     count = f.readlines()
 
     count = float(count[0].split('=')[1])
@@ -163,7 +161,7 @@ def count_distance(input_img):
 
 
 def validate(Pre_data, model, rate_model, args):
-    print ('begin test')
+    print('begin test')
     test_loader = torch.utils.data.DataLoader(
         dataset.listDataset(Pre_data, args.task_id,
                             shuffle=False,
@@ -180,18 +178,18 @@ def validate(Pre_data, model, rate_model, args):
     original_mae = 0.0
     visi = []
 
-
-    for i, (fname, img, target, kpoint,sigma)  in enumerate(test_loader):
+    for i, (fname, img, target, kpoint, sigma) in enumerate(test_loader):
         img_size = img.size()
         count_crop = 0
         count_other = 0
         img = img.cuda()
         target = target.type(torch.LongTensor)
 
-        d0, d1, d2, d3, d4, d5, scales_feature = model(img, target,refine_flag=True)
+        d0, d1, d2, d3, d4, d5, scales_feature = model(img, target, refine_flag=True)
         original_distance_map = torch.max(F.softmax(d5), 1, keepdim=True)[1]
-        crop_size, crop_size_second, crop_size_third,contours = findmaxcontours(original_distance_map.data.cpu().numpy(),
-                                                                       find_max=True, fname=fname)
+        crop_size= findmaxcontours(
+            original_distance_map.data.cpu().numpy(),
+            find_max=True, fname=fname)
         original_count = count_distance(original_distance_map)
 
         scale_crop = scales_feature[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
@@ -208,7 +206,7 @@ def validate(Pre_data, model, rate_model, args):
         distance_map_gt_crop = distance_generate(img_size, kpoint, rate.item(), crop_size)[1]
         distance_map_gt_crop = torch.from_numpy(distance_map_gt_crop).unsqueeze(0).type(torch.LongTensor)
 
-        if (float(crop_size[2] * crop_size[3]) / (img_size[2] * img_size[3])) > args.area_threshold :
+        if (float(crop_size[2] * crop_size[3]) / (img_size[2] * img_size[3])) > args.area_threshold:
 
             img_crop = img[:, :, crop_size[1]:(crop_size[1] + crop_size[3]),
                        crop_size[0]:(crop_size[0] + crop_size[2])]
@@ -216,7 +214,7 @@ def validate(Pre_data, model, rate_model, args):
                                            (int(img_crop.size()[2] * rate),
                                             int(img_crop.size()[3] * rate)))
 
-            dd0, dd1, dd2, dd3, dd4, dd5 = model(img_crop,  distance_map_gt_crop, refine_flag=False)
+            dd0, dd1, dd2, dd3, dd4, dd5 = model(img_crop, distance_map_gt_crop, refine_flag=False)
 
             dd5 = torch.max(F.softmax(dd5), 1, keepdim=True)[1]
             count_crop = count_distance(dd5)
@@ -231,20 +229,18 @@ def validate(Pre_data, model, rate_model, args):
 
         count = count_crop + count_other
         Gt_count = torch.sum(kpoint).item()
-        mae += abs( count- Gt_count)
+        mae += abs(count - Gt_count)
         mse += abs(count - Gt_count) * abs(count - Gt_count)
-        original_mae += abs(original_count - Gt_count)
 
         if i % args.print_freq == 0:
             print(fname[0], 'rate {rate:.3f}'.format(rate=rate.item()), 'gt', torch.sum(kpoint).item(),
-                  "pred", int(count), "original:", int(original_count))
+                  "pred", int(count))
 
-    mae = mae * 1.0/ len(test_loader)
-    mse = math.sqrt(mse/len(test_loader))
-    original_mae = original_mae / len(test_loader)
-    print(' \n* MAE {mae:.3f}\n'.format(mae=mae), '* MSE {mse:.3f}\n'.format(mse=mse),'* ORI_MAE {ori_mae:.3f}\n'.format(ori_mae=original_mae))
+    mae = mae * 1.0 / len(test_loader)
+    mse = math.sqrt(mse / len(test_loader))
 
-    return mae, original_mae, visi
+    print(' \n* MAE {mae:.3f}\n'.format(mae=mae), '* MSE {mse:.3f}\n'.format(mse=mse))
+
 
 
 

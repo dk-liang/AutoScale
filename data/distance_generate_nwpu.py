@@ -23,14 +23,15 @@ import cv2
 
 # get_ipython().magic(u'matplotlib inline')
 
-# now generate the ShanghaiA's ground truth
-NWPU_Crowd_path = '/home/dkl/projects/synchronous/NWPU_Crowd/train_data/images_2048/'
+'''please set your dataset path'''
+NWPU_Crowd_path = '/home/dkl/projects/synchronous/NWPU_localization/images_2048/'
 
 path_sets = [NWPU_Crowd_path]
 
-save_path = './save_image/'
+if not os.path.exists(NWPU_Crowd_path.replace('images','gt_distance_map')):
+    os.makedirs(NWPU_Crowd_path.replace('images','gt_distance_map'))
 
-# In[4]:
+
 
 
 img_paths = []

@@ -8,6 +8,7 @@ import scipy.misc
 import time
 import scipy.spatial
 
+'''please set your dataset path'''
 root = '/home/dkliang/projects/synchronous/UCF-QNRF_ECCV18'
 
 img_train_path = root + '/Train/'

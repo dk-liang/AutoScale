@@ -17,8 +17,8 @@ import torch
 import cv2
 import math
 
-# set the root to the Shanghai dataset you download
-root = '/home/dkl/projects/synchronous/jhu_crowd_v2.0/'
+'''please set your dataset path'''
+root = '/home/dkliang/projects/synchronous/jhu_crowd_v2.0'
 
 train = root + '/train/images/'
 val = root + '/val/images/'
@@ -28,20 +28,25 @@ test = root + '/test/images/'
 if not os.path.exists(train.replace('images','images_2048')):
     os.makedirs(train.replace('images','images_2048'))
 
-if not os.path.exists(train.replace('images','gt_distance_map')):
-    os.makedirs(train.replace('images','gt_distance_map'))
+if not os.path.exists(train.replace('images','gt_distance_map_2048')):
+    os.makedirs(train.replace('images','gt_distance_map_2048'))
+
+if not os.path.exists(train.replace('images','gt_show_distance')):
+    os.makedirs(train.replace('images','gt_show_distance'))
 
 if not os.path.exists(val.replace('images','images_2048')):
     os.makedirs(val.replace('images','images_2048'))
 
-if not os.path.exists(val.replace('images','gt_distance_map')):
-    os.makedirs(val.replace('images','gt_distance_map'))
+if not os.path.exists(val.replace('images','gt_distance_map_2048')):
+    os.makedirs(val.replace('images','gt_distance_map_2048'))
 
-if not os.path.exists(train.replace('images','images_2048')):
-    os.makedirs(train.replace('images','images_2048'))
+if not os.path.exists(test.replace('images','images_2048')):
+    os.makedirs(test.replace('images','images_2048'))
 
-if not os.path.exists(test.replace('images','gt_distance_map')):
-    os.makedirs(test.replace('images','gt_distance_map'))
+if not os.path.exists(test.replace('images','gt_distance_map_2048')):
+    os.makedirs(test.replace('images','gt_distance_map_2048'))
+
+
 
 
 
