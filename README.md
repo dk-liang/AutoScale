@@ -53,24 +53,26 @@ Edit "distance_generate_xx.py" to change the path to your original dataset folde
 
 “xx” means the dataset name, including sh, jhu, qnrf, and  nwpu.
 
-
 # Model
-* QNRF [link](https://pan.baidu.com/s/134U6Q0cugUf8xOLSAq3IGw),passward:eh5g
-* NWPU [link](https://pan.baidu.com/s/1eCRi51uUCduIxet_fIEjcg),passward:gupa
-* JHU [link](https://pan.baidu.com/s/1z4S9kt9YxLq7ML-TcPV1hw),passward:0cw9
-* ShanghaiA [link](https://pan.baidu.com/s/13dWGc8-0T_MTkyDD14U2nQ), passward : ban1
-* ShanghaiB [link](https://pan.baidu.com/s/1cs4Txb6BoobMTB7VKsjfmQ), passward : a3g2
-
+* QNRF [link](https://pan.baidu.com/s/1jHazRvt3tXbgRIdD-5yQJw), passward:bbpr
+* NWPU [link](https://pan.baidu.com/s/1eCRi51uUCduIxet_fIEjcg), passward:gupa
+* JHU [link](https://pan.baidu.com/s/16iE_VjlOfXZmV-cEkAl9Eg), passward:qr07
+* ShanghaiA [link](https://pan.baidu.com/s/1k10W1__uh3Z93GDjpC-U_A), passward : ge32
+* ShanghaiB [link](https://pan.baidu.com/s/1WWZ8I5Hi6ZtGXrzF617zjQ), passward : 2pq0
 
 # Quickly test
 * ```git clone https://github.com/dkliang-hust/AutoScale.git```<br />
 ```cd AutoScale```<br />
 ```chmod -R 777 ./count_localminma```<br />
 * Download Dataset and Model
+
 * Generate target
+
 * Generate images list
+
 Edit "make_npydata.py" to change the path to your original dataset folder.<br />
 Run ```python make_npydata.py  ```
+
 * Test <br />
 ```python val.py  --test_dataset qnrf  --pre ./model/QNRF/model_best.pth --gpu_id 0```<br />
 ```python val.py  --test_dataset jhu  --pre ./model/JHU/model_best.pth --gpu_id 0```<br />
