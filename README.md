@@ -44,12 +44,13 @@ imageio >=1.18
 * Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
 * Download UCF-QNRF dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
 * Download JHU-CROWD ++  dataset from [here](http://www.crowd-counting.com/)
-* Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1hzGULEkg2FyW8oHSGmxgiA), passward:jm2v
+* Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1VhFlS5row-ATReskMn5xTw), passward:3awa
 
 # Generate target
 ```cd data```<br />
-Edit "distance_generate_xx.py" to change the path to your original dataset folder.
+Edit "distance_generate_xx.py" to change the path to your original dataset folder.<br />
 ```python distance_generate_xx.py```
+
 “xx” means the dataset name, including sh, jhu, qnrf, and  nwpu.
 
 
@@ -68,7 +69,7 @@ Edit "distance_generate_xx.py" to change the path to your original dataset folde
 * Download Dataset and Model
 * Generate target
 * Generate images list
-Edit "make_npydata.py" to change the path to your original dataset folder.
+Edit "make_npydata.py" to change the path to your original dataset folder.<br />
 Run ```python make_npydata.py  ```
 * Test <br />
 ```python val.py  --test_dataset qnrf  --pre ./model/QNRF/model_best.pth --gpu_id 0```<br />
