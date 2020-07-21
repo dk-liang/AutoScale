@@ -61,7 +61,7 @@ Edit "distance_generate_xx.py" to change the path to your original dataset folde
 * ShanghaiB [link](https://pan.baidu.com/s/1WWZ8I5Hi6ZtGXrzF617zjQ), passward : 2pq0
 
 # Quickly test
-* ```git clone https://github.com/dkliang-hust/AutoScale.git```<br />
+* ```git clone https://github.com/dk-liang/AutoScale.git```<br />
 ```cd AutoScale```<br />
 ```chmod -R 777 ./count_localminma```<br />
 * Download Dataset and Model
