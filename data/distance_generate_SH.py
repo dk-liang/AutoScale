@@ -9,7 +9,7 @@ import scipy.io as io
 import scipy.spatial
 
 '''please set your dataset path'''
-root = '/home/dkliang/projects/synchronous/ShanghaiTech/'
+root = '/home/dkliang/projects/synchronous/dataset/ShanghaiTech/'
 
 part_A_train = os.path.join(root,'part_A_final/train_data','images')
 part_A_test = os.path.join(root,'part_A_final/test_data','images')

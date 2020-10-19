@@ -82,7 +82,9 @@ Run ```python make_npydata.py  ```
 More config information is  provided in ```config.py  ```
 
 # Training
-coming soon.
+Our journal version of the paper has been cast, is under review. 
+
+We will release that training code when it is ready.
 
 # References
 If you are interested in AutoScale, please cite our work:
