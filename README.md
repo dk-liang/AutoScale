@@ -42,7 +42,7 @@ imageio >=1.18
 
 # Datasets
 * Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
-* Download UCF-QNRF dataset from  [Google-Drive](https://drive.google.com/file/d/1fLZdOsOXlv2muNB_bXEW6t-IS9MRziL6/view)
+* Download UCF-QNRF dataset from  [Google-Drive](https://www.crcv.ucf.edu/data/ucf-qnrf/)
 * Download JHU-CROWD ++  dataset from [here](http://www.crowd-counting.com/)
 * Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1VhFlS5row-ATReskMn5xTw), passward:3awa
 
