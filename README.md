@@ -41,10 +41,10 @@ pillow >=7.0.0<br />
 imageio >=1.18
 
 # Datasets
-* Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx <br />
-* Download UCF-QNRF dataset from  [Google-Drive](https://www.crcv.ucf.edu/data/ucf-qnrf/)
+* Download ShanghaiTech dataset from [Baidu-Disk](https://pan.baidu.com/s/15WJ-Mm_B_2lY90uBZbsLwA), passward:cjnx; or [Google-Drive](https://drive.google.com/file/d/1CkYppr_IqR1s6wi53l2gKoGqm7LkJ-Lc/view?usp=sharing)
+* Download UCF-QNRF dataset from  [here](https://www.crcv.ucf.edu/data/ucf-qnrf/)
 * Download JHU-CROWD ++  dataset from [here](http://www.crowd-counting.com/)
-* Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1VhFlS5row-ATReskMn5xTw), passward:3awa
+* Download NWPU-CROWD dataset from [Baidu-Disk](https://pan.baidu.com/s/1VhFlS5row-ATReskMn5xTw), passward:3awa; or [Google-Drive](https://drive.google.com/file/d/1drjYZW7hp6bQI39u7ffPYwt4Kno9cLu8/view?usp=sharing)
 
 # Generate target
 ```cd data```<br />
@@ -54,11 +54,7 @@ Edit "distance_generate_xx.py" to change the path to your original dataset folde
 “xx” means the dataset name, including sh, jhu, qnrf, and  nwpu.
 
 # Model
-* QNRF [link](https://pan.baidu.com/s/1jHazRvt3tXbgRIdD-5yQJw), passward:bbpr
-* NWPU [link](https://pan.baidu.com/s/1eCRi51uUCduIxet_fIEjcg), passward:gupa
-* JHU [link](https://pan.baidu.com/s/16iE_VjlOfXZmV-cEkAl9Eg), passward:qr07
-* ShanghaiA [link](https://pan.baidu.com/s/1k10W1__uh3Z93GDjpC-U_A), passward : ge32
-* ShanghaiB [link](https://pan.baidu.com/s/1WWZ8I5Hi6ZtGXrzF617zjQ), passward : 2pq0
+Download the pretrained model from [Baidu-Disk](https://pan.baidu.com/s/1ztWjl7suAnta58JWxRKQCw), passward:wqf4;  or [Google-Drive](https://drive.google.com/drive/folders/1mL8IAy8Jo1iSx2RvTWPpgW94ZX7231sn?usp=sharing)
 
 # Quickly test
 * ```git clone https://github.com/dk-liang/AutoScale.git```<br />
