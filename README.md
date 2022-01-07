@@ -77,19 +77,15 @@ Run ```python make_npydata.py  ```
 ```python val.py  --test_dataset ShanghaiB  --pre ./model/ShanghaiB/model_best.pth --gpu_id 0```<br />
 More config information is  provided in ```config.py  ```
 
-# Training
-Our journal version of the paper has been cast, is under review. 
-
-We will release that training code when it is ready.
 
 # References
 If you are interested in AutoScale, please cite our work:
 ```
-@article{xu2019autoscale,
+@article{autoscale,
   title={AutoScale: Learning to Scale for Crowd Counting},
   author={Xu, Chenfeng and Liang, Dingkang and Xu, Yongchao and Bai, Song and Zhan, Wei and Tomizuka, Masayoshi and Bai, Xiang},
-  journal={arXiv preprint arXiv:1912.09632},
-  year={2019}
+  journal={Int J Comput Vis},
+  year={2022}
 }
 ```
 and
@@ -102,5 +98,4 @@ and
   year={2019}
 }
 ```
-
 
